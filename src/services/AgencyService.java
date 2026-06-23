@@ -1,6 +1,7 @@
 package services;
 
 import models.Agency;
+import models.House;
 
 import java.util.Set;
 

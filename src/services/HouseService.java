@@ -10,5 +10,7 @@ public interface HouseService {
     House getById(long id);
     Set<House> getAllHouse();
     String updateHouse(House house, long id);
+    Set<House> sortHouseByPrice(String ascOrDesc);
+    Set<House> sortHousesByArea(String ascOrDesc);
 
 }

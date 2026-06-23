@@ -1,11 +1,12 @@
 package services;
 
+import comparators.AreaComparator;
+import comparators.PriceComparator;
 import db.Database;
 import exceptions.NotFoundException;
 import models.House;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class HouseServiceImpl implements HouseService{
     private Database database;
@@ -47,6 +48,32 @@ public class HouseServiceImpl implements HouseService{
             }
         }
         throw new NotFoundException("Not found");
+    }
+
+    @Override
+    public Set<House> sortHouseByPrice(String ascOrDesc) {
+        List<House> houses = new ArrayList<>(database.getHouses());
+        if (ascOrDesc.equals("asc")){
+            houses.sort(new PriceComparator());
+            return new LinkedHashSet<>(houses);
+        }else if(ascOrDesc.equals("desc")) {
+            houses.sort(new PriceComparator().reversed());
+            return new LinkedHashSet<>(houses);
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public Set<House> sortHousesByArea(String ascOrDesc) {
+        List<House> houses = new ArrayList<>(database.getHouses());
+        if (ascOrDesc.equals("asc")){
+            houses.sort(new AreaComparator());
+            return new LinkedHashSet<>(houses);
+        }else if(ascOrDesc.equals("desc")){
+            houses.sort(new AreaComparator().reversed());
+            return new LinkedHashSet<>(houses);
+        }
+        throw new IllegalArgumentException();
     }
 
 }
